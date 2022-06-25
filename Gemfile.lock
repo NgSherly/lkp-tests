@@ -18,7 +18,7 @@ GEM
     concurrent-ruby (1.1.10)
     diff-lcs (1.5.0)
     docile (1.4.0)
-    git (1.7.0)
+    git (1.11.0)
       rchardet (~> 1.8)
     gnuplot (2.6.2)
     i18n (1.10.0)
@@ -86,13 +86,14 @@ GEM
       webrick (~> 1.7.0)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
   activesupport (~> 5.2.0)
   ci_reporter_rspec
   colorize
-  git (~> 1.7.0)
+  git (~> 1.11.0)
   gnuplot
   pry
   pry-doc
@@ -102,4 +103,3 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   term-ansicolor
-

@@ -1,11 +1,11 @@
 pkgname=phoronix-test-suite
-pkgver=9
-pkgrel=4.1
-arch=('i386' 'x86_64')
+pkgver=10
+pkgrel=8.3
+arch=('i386' 'x86_64' 'riscv64')
 url="http://phoronix-test-suite.com/releases"
 license=('GPLv3')
 source=("http://phoronix-test-suite.com/releases/${pkgname}-${pkgver}.${pkgrel}.tar.gz")
-md5sums=('7dc8f085701122f031516e03c439d347')
+md5sums=('d1538de8f9197b9bed31998096a013b5')
 
 package()
 {

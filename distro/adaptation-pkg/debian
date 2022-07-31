@@ -120,3 +120,4 @@ bpftrace::
 kernbench::
 rt-app::
 openssl-basic::
+7zcompression::

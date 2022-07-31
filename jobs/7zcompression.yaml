@@ -1,0 +1,5 @@
+suite: 7zcompression
+testcase: 7zcompression
+category: benchmark
+
+7zcompression:

@@ -1,0 +1,21 @@
+short_description: >
+ OpenSSL is an open-source toolkit that implements SSL (Secure Sockets Layer) and 
+ TLS (Transport Layer Security) protocols. 
+
+description: |
+ OpenSSL is an open-source toolkit that implements SSL (Secure Sockets Layer) and 
+ TLS (Transport Layer Security) protocols. This test profile makes use of the built-in
+ "openssl speed" benchmarking capabilities. Using openssl speed (test library performance)
+ command to evaluate the algo RSA4096 (how many sign/s and verify/s) and SHA256
+ (how many bytes/s)
+
+homepage: https://github.com/openssl/openssl
+
+parameters:
+ runtime:
+ algo:          [sha256, rsa4096]
+
+results:
+ openssl-basic.KByte/s: KB/s
+ openssl-basic.sign/s: sign/s
+ openssl-basic.verify/s: verify/s

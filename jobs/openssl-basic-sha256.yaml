@@ -1,0 +1,7 @@
+suite: openssl-basic
+testcase: openssl-basic
+category: benchmark
+
+openssl-basic:
+  algo:
+  - sha256

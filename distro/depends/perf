@@ -1,6 +1,6 @@
 binutils
 linux-perf
-libunwind8
+libunwind-14
 libzstd-dev
 numactl
 libpython2.7

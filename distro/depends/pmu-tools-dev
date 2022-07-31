@@ -6,7 +6,7 @@ libdw-dev
 libiberty-dev
 liblzma-dev
 libnuma-dev
-libunwind-dev
+libunwind-14-dev
 zlib1g-dev
 python
 systemtap-sdt-dev

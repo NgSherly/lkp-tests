@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+LKP_SRC = ENV['LKP_SRC'] || File.dirname(File.dirname(File.realpath($PROGRAM_NAME)))
+
+require "#{LKP_SRC}/lib/log"
+require "#{LKP_SRC}/lib/string_ext"
+
+while (line = $stdin.gets)
+  line = line.resolve_invalid_bytes
+  case line
+  when /elapsed/
+    array_str = line.split(/ /)
+	full_time=0
+	start_index = 0
+	while full_time == 0 && start_index<array_str.length()
+		if /elapsed/.match(array_str[start_index])	
+			full_time=array_str[start_index].split("elapsed",2)[0]
+		end
+		start_index = start_index + 1
+	end		
+	time_array = full_time.split(":",2)
+	minutes = time_array[0]
+	seconds = time_array[1]	
+	time_in_sec = seconds.to_f + ( minutes.to_f * 60 )
+	puts "defconfig.time(s): #{time_in_sec}"
+  end
+end
+

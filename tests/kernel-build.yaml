@@ -1,0 +1,12 @@
+short_description: >
+ This test times how long it takes to build the Linux kernel in a default configuration
+
+description: |
+ This test times how long it takes to build the Linux kernel in a default configuration
+
+homepage:  http://fr2.rpmfind.net/linux/kernel/v5.x/
+
+parameters:
+ 
+results:
+ kernel-build.defconfig.time(s): second

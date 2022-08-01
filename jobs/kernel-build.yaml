@@ -1,0 +1,5 @@
+suite: kernel-build
+testcase: kernel-build
+category: benchmark
+
+kernel-build:

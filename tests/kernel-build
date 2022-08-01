@@ -1,0 +1,15 @@
+#!/bin/sh
+# - kernel-build
+
+. $LKP_SRC/lib/upload.sh
+. $LKP_SRC/lib/unit.sh
+. $LKP_SRC/lib/reproduce-log.sh
+
+cd $BENCHMARK_ROOT/kernel-build || die "no $BENCHMARK_ROOT/kernel-build"
+
+echo "Building kernel..."
+
+make defconfig && make clean
+scripts/config --set-val CONFIG_WERROR n 
+log_cmd time make -s -j `nproc` 2>&1  
+

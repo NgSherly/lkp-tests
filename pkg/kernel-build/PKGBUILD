@@ -1,0 +1,18 @@
+pkgname=kernel-build
+pkgver=5
+pkgrel=18
+arch=('i386' 'x86_64' 'riscv64')
+url="http://fr2.rpmfind.net/linux/kernel/v5.x/"
+license=('GPL')
+source=("http://fr2.rpmfind.net/linux/kernel/v5.x/linux-${pkgver}.${pkgrel}.tar.xz")
+sha256sums=('SKIP')
+
+build()
+{
+	tar -xvf linux-5.18.tar.xz
+	cd "linux-5.18"
+}
+package() {
+	mkdir -p "${pkgdir}/lkp/benchmarks/${pkgname}"
+	cp -af "$srcdir/linux-5.18/"* "${pkgdir}/lkp/benchmarks/${pkgname}"
+}

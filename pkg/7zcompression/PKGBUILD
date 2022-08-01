@@ -1,0 +1,20 @@
+pkgname=7zcompression
+pkgver=22
+pkgrel=00
+arch=('i386' 'x86_64' 'riscv64')
+url="https://www.7-zip.org/"
+license=('GPL')
+source=("https://www.7-zip.org/a/7z${pkgver}${pkgrel}-src.tar.xz")
+sha256sums=('SKIP')
+
+build()
+{
+	mkdir -p ${srcdir}/${pkgname}
+	tar -xf 7z${pkgver}${pkgrel}-src.tar.xz -C ${srcdir}/${pkgname}
+	cd "${pkgname}/CPP/7zip/Bundles/Alone2"
+	make -j `nproc` -f makefile.gcc
+}
+package() {
+	mkdir -p "${pkgdir}/lkp/benchmarks/${pkgname}"
+	cp -af "$srcdir/${pkgname}/"* "${pkgdir}/lkp/benchmarks/${pkgname}"
+}

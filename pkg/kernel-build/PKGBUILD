@@ -9,10 +9,10 @@ sha256sums=('SKIP')
 
 build()
 {
-	tar -xvf linux-5.18.tar.xz
-	cd "linux-5.18"
+	tar -xvf linux-${pkgver}.${pkgrel}.tar.xz"
+	cd "linux-${pkgver}.${pkgrel}"
 }
 package() {
 	mkdir -p "${pkgdir}/lkp/benchmarks/${pkgname}"
-	cp -af "$srcdir/linux-5.18/"* "${pkgdir}/lkp/benchmarks/${pkgname}"
+	cp -af "$srcdir/linux-${pkgver}.${pkgrel}/"* "${pkgdir}/lkp/benchmarks/${pkgname}"
 }

@@ -24,7 +24,6 @@ while (line = $stdin.gets)
 	puts "sign/s: #{val_sign_per_s}"
 	puts "verify/s: #{val_verify_per_s}"
   when /^sha256/
-	log_warn "shuilein captured line= #{line}"
     array_str = line.split(/ /)
 	index_kbyte_per_s = 0
 	start_index = array_str.length() - 1

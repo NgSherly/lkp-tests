@@ -1,0 +1,16 @@
+suite: fio-pts
+testcase: fio-pts
+category: benchmark
+
+disk: 1SSD
+
+fio-pts:
+  rw:
+    - read
+  bs:
+    - 1M
+  ioengine:
+    - sync
+  test_size: 1g
+  direct: 1
+  buffered: 0

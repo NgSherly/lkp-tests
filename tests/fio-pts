@@ -1,0 +1,49 @@
+#!/bin/sh
+# - fio-pts
+
+. $LKP_SRC/lib/upload.sh
+. $LKP_SRC/lib/unit.sh
+. $LKP_SRC/lib/reproduce-log.sh
+
+cd $BENCHMARK_ROOT/fio-pts || die "no $BENCHMARK_ROOT/fio-pts"
+
+echo "Running fio benchmark..."
+echo "IO Type =$rw, IO Engine=$ioengine, Block Size=$bs, Buffered=$buffered, Direct=$direct"
+
+touch fiofile
+
+if [ $ioengine = "io_uring" ]
+then
+	FORCE_ASYNC="force_async=4"
+else
+	FORCE_ASYNC=""
+fi
+
+echo "[global]
+rw=$rw
+ioengine=$ioengine
+iodepth=64
+size=$test_size
+direct=$direct
+buffered=$buffered
+startdelay=5
+$FORCE_ASYNC
+ramp_time=5
+runtime=20
+time_based" > test.fio
+if [ "${OPERATING_SYSTEM}" != "freebsd" ]
+then
+	echo "disk_util=0" >> test.fio
+fi
+echo "clat_percentiles=0
+disable_lat=1
+disable_clat=1
+disable_slat=1
+filename=fiofile
+[test]
+name=test
+bs=$bs
+stonewall" >> test.fio
+
+log_cmd ./fio test.fio --output-format=json > $TMP_RESULT_ROOT/fio-pts.output
+

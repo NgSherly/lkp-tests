@@ -4,4 +4,5 @@ category: benchmark
 
 openssl-basic:
   algo:
-  - sha256
+    - rsa4096
+    - sha256

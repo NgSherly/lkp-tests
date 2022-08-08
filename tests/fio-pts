@@ -1,5 +1,10 @@
 #!/bin/sh
-# - fio-pts
+# - rw
+# - bs
+# - ioengine
+# - test_size
+# - direct
+# - buffered
 
 . $LKP_SRC/lib/upload.sh
 . $LKP_SRC/lib/unit.sh

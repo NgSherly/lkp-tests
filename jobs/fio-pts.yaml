@@ -6,11 +6,14 @@ disk: 1SSD
 
 fio-pts:
   rw:
+    - randread
     - read
   bs:
+    - 4K
     - 1M
   ioengine:
     - sync
+    - libaio
   test_size: 1g
   direct: 1
   buffered: 0

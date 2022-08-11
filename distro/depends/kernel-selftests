@@ -4,20 +4,20 @@ gcc-multilib
 libc6-dev
 libc-bin
 libc6-dev-i386 (x86_64)
-libc6-dev-x32
+libc6-dev-x32 (x86_64)
 libc6
-lib32gcc-dev
-libx32gcc-dev
-libc6-i386
+lib32gcc-dev (x86_64)
+libx32gcc-dev (x86_64)
+libc6-i386 (x86_64)
 libc6-dev
-libc6-x32
-libx32gcc1
-libx32gomp1
-libx32itm1
-libx32atomic1
-libx32asan5
-libx32ubsan1
-libx32quadmath0
+libc6-x32 (x86_64)
+libx32gcc1 (x86_64)
+libx32gomp1 (x86_64)
+libx32itm1 (x86_64)
+libx32atomic1 (x86_64)
+libx32asan5 (x86_64)
+libx32ubsan1 (x86_64)
+libx32quadmath0 (x86_64)
 rsync
 make
 libcap-ng-dev

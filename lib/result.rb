@@ -69,8 +69,7 @@ class ResultPath < Hash
       ucode = self['path_params'][/ucode=0x[0-9a-z]*/]
       self['ucode'] = ucode.split('=').last if ucode
 
-      monitor = self['path_params'][/monitor=[0-9a-f]{8}/]
-      self['monitor'] = monitor.split('=').last if monitor
+      self['unified_path_params'] = self.class.unified_path_params self['path_params']
     end
 
     if ps.include?('commit')
@@ -171,6 +170,10 @@ class ResultPath < Hash
       cmdline = "grep -he '#{pattern}' #{KTEST_PATHS_DIR}/*/????-??-??-* | sed -e 's#[0-9]\\+/$##' | sort | uniq"
       `#{cmdline}`
     end
+
+    def unified_path_params(path)
+      path.sub(/-ucode=[a-zA-Z0-9]{0,10}/, '')
+    end
   end
 end
 
@@ -185,5 +188,11 @@ class << ResultPath
     rp = new
     rp.update(axes)
     rp
+  end
+
+  def rectify(path)
+    # remove extra '/'
+    # //result/rcuscale/300s-rcu/vm-snb/debian-i386-20191205.cgz/i386-randconfig-a001-20201231/gcc-9/b1ca223e5ea73f2fea3551685f38ec35a372400a/
+    path.split('/').reject(&:empty?).map { |field| "/#{field}" }.join
   end
 end

@@ -537,6 +537,22 @@ fixup_kexec()
 	sed -i 's/bin\/sh/bin\/bash/g' kexec/test_kexec_load.sh
 }
 
+fixup_user_events()
+{
+	# dyn_test.c:9:10: fatal error: linux/user_events.h: No such file or directory
+	# user_events do not build unless you manually install user_events.h into usr/include/linux.
+	cp ../../../include/linux/user_events.h ../../../usr/include/linux/
+
+	# avoid REMOVE usr/include/linux/user_events.h when make headers_install
+	sed -i 's/headers_install\: headers/headers_install\:/' ../../../Makefile
+}
+
+fixup_kvm()
+{
+	# SKIP - /dev/kvm not available (errno: 2)
+	lsmod | grep -q 'kvm_intel' || modprobe kvm_intel
+}
+
 prepare_for_selftest()
 {
 	if [ "$group" = "group-00" ]; then
@@ -817,6 +833,10 @@ fixup_subtest()
 		fixup_fpu
 	elif [[ "$subtest" = "kexec" ]]; then
 		fixup_kexec
+	elif [[ "$subtest" = "user_events" ]]; then
+		fixup_user_events
+	elif [[ "$subtest" = "kvm" ]]; then
+		fixup_kvm
 	fi
 	return 0
 }

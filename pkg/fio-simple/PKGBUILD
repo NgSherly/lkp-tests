@@ -1,0 +1,20 @@
+pkgname=fio-simple
+pkgver=3
+pkgrel=30
+arch=('i386' 'x86_64' 'riscv64')
+url="https://github.com/axboe/fio"
+license=('GPL')
+source=("https://brick.kernel.dk/snaps/fio-${pkgver}.${pkgrel}.tar.gz")
+sha256sums=('SKIP')
+
+build()
+{
+	tar -xf fio-${pkgver}.${pkgrel}.tar.gz
+	cd "fio-${pkgver}.${pkgrel}"
+	./configure --extra-cflags="-O3 -fcommon"
+	make -j `nproc`
+}
+package() {
+	mkdir -p "${pkgdir}/lkp/benchmarks/${pkgname}"
+	cp -af "$srcdir/fio-${pkgver}.${pkgrel}/"* "${pkgdir}/lkp/benchmarks/${pkgname}"
+}

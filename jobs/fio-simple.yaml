@@ -1,0 +1,19 @@
+suite: fio-simple
+testcase: fio-simple
+category: benchmark
+
+disk: 1SSD
+
+fio-simple:
+  rw:
+    - randread
+    - read
+  bs:
+    - 4K
+    - 1M
+  ioengine:
+    - sync
+    - libaio
+  test_size: 1g
+  direct: 1
+  buffered: 0

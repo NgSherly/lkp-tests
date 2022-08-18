@@ -118,3 +118,4 @@ bpftrace::
 kernbench::
 rt-app::
 fio-simple::
+openssl-basic::

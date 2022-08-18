@@ -1,0 +1,21 @@
+pkgname=openssl-basic
+pkgver=git
+pkgrel=1
+arch=('i386' 'x86_64' 'riscv64')
+url="https://github.com/openssl/openssl.git"
+license=('GPL')
+source=("https://github.com/openssl/openssl.git")
+md5sums=('SKIP')
+
+build()
+{
+	cd "${srcdir}/openssl"
+	git checkout openssl-3.0.5
+	./config no-zlib
+	make -j`nproc`
+}
+
+package() {
+	mkdir -p "${pkgdir}/lkp/benchmarks/openssl"
+	cp -af "$srcdir/openssl/"* "${pkgdir}/lkp/benchmarks/openssl"
+}

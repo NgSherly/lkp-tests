@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+LKP_SRC = ENV['LKP_SRC'] || File.dirname(File.dirname(File.realpath($PROGRAM_NAME)))
+
+require "#{LKP_SRC}/lib/log"
+require "#{LKP_SRC}/lib/string_ext"
+
+while (line = $stdin.gets)
+  line = line.resolve_invalid_bytes
+  case line
+  when /^rsa 4096 bits/
+    array_str = line.split(/ /)
+	index_verify_per_s = array_str.length()-1
+	index_sign_per_s = 0
+	start_index = array_str.length() - 2	
+	while start_index > 0 && index_sign_per_s == 0
+		if array_str[start_index] != ""
+			index_sign_per_s = start_index
+		end
+		start_index = start_index -1
+	end
+	val_sign_per_s = array_str[index_sign_per_s]
+	val_verify_per_s = array_str[index_verify_per_s ]
+	puts "sign/s: #{val_sign_per_s}"
+	puts "verify/s: #{val_verify_per_s}"
+  when /^sha256/
+    array_str = line.split(/ /)
+	index_kbyte_per_s = 0
+	start_index = array_str.length() - 1
+	target_section = 4
+	count=0
+	while start_index > 0 && index_kbyte_per_s == 0
+		if array_str[start_index] != ""
+			count = count + 1
+			if count == target_section
+				index_kbyte_per_s = start_index
+			end
+		end
+		start_index = start_index -1
+	end	
+	val_kbyte_per_s = array_str[index_kbyte_per_s].split("k",2)[0]
+	puts "Kbyte/s: #{val_kbyte_per_s}"
+  end
+end

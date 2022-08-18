@@ -1,0 +1,8 @@
+suite: openssl-basic
+testcase: openssl-basic
+category: benchmark
+
+openssl-basic:
+  algo:
+    - rsa4096
+    - sha256

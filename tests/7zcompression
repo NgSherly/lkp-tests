@@ -1,0 +1,13 @@
+#!/bin/sh
+# - 7zcompression
+
+. $LKP_SRC/lib/upload.sh
+. $LKP_SRC/lib/unit.sh
+. $LKP_SRC/lib/reproduce-log.sh
+
+cd $BENCHMARK_ROOT/7zcompression || die "no $BENCHMARK_ROOT/7zcompression"
+
+echo "Running 7zip compression and decompression benchmark..."
+
+log_cmd ./CPP/7zip/Bundles/Alone2/_o/7zz b 2>&1  
+

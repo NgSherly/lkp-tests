@@ -1,0 +1,15 @@
+short_description: >
+ Measuring MIPS during 7z compression and decompresssion on each thread then get the avarage MIPS.
+
+description: |
+ Measuring MIPS during compression and decompresssion on each thread then get the avarage MIPS. 
+ Note: Million instructions per second (MIPS) is an approximate measure of a computer's raw
+ processing power.
+
+homepage: https://www.7-zip.org/
+
+parameters:
+ 
+results:
+ 7zcompression.Compression.MIPS: MIPS
+ 7zcompression.Decompressiong.MIPS: MIPS

@@ -122,3 +122,4 @@ rt-app::
 fio-simple::
 openssl-basic::
 7zcompression::
+kernel-build::

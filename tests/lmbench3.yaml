@@ -52,3 +52,7 @@ parameters:
         bcopy:
         mem:
         ops:
+    nr_parallelism: "number of parallel process"
+    size: "memory size"
+    stride: "stride size"
+    rd_mem_latency: "set to 1 to run lat_mem_rd"

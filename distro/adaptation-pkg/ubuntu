@@ -121,3 +121,4 @@ fio-simple::
 openssl-basic::
 7zcompression::
 kernel-build::
+coremark::

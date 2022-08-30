@@ -6,10 +6,11 @@ standalone: 1
 
 lmbench3:
     test:
-        - lat_mem_rd
+        - bw_mem
     nr_parallelism:
         - 1
     size:
-        - 128
-    stride:
-        - 64
+        - 256M
+    op:
+        - rd
+        - wr

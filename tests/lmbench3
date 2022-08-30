@@ -6,7 +6,8 @@
 # - nr_parallelism
 # - size
 # - stride
-# - rd_mem_latency
+# - standalone
+# - op
 
 ## lmbench is a suite of simple, portable, ANSI/C microbenchmarks for
 ## UNIX/POSIX. In general, it measures two key features: latency and
@@ -198,7 +199,7 @@ plot "${LMBENCH_RESULT}" using 1:2 with linespoints ls 1 smooth unique title "${
 EOF
 }
 
-if [ ${rd_mem_latency} != "1" ]; then
+if [ ${standalone} != "1" ]; then
 	test_memory_size=$((test_memory_size/1024/1024))
 
 	# The bigger test memory range, the more accurate the results, but larger sizes
@@ -217,7 +218,7 @@ cd $BENCHMARK_ROOT/lmbench3 || {
 
 make 2>&1 || die "failed to build lmbench3"
 
-if [ ${rd_mem_latency} != "1" ]; then
+if [ ${standalone} != "1" ]; then
 
 	os=$($BENCHMARK_ROOT/lmbench3/scripts/os)
 	[ -n "$os" ] && rm -rf $BENCHMARK_ROOT/lmbench3/results/$os/
@@ -234,15 +235,25 @@ if [ ${rd_mem_latency} != "1" ]; then
 
 else
 
-	LAT_MEM_RD_PATH="$(find bin/ -maxdepth 2 -name lat_mem_rd)"
-	echo "Running memory load latency..."
-	log_cmd ./${LAT_MEM_RD_PATH} -P ${nr_parallelism} ${size} ${stride} 2>&1 > $TMP_RESULT_ROOT/lmbench3
+	case "$test" in
+		'lat_mem_rd')
+			TEST_BIN_PATH="$(find bin/ -maxdepth 2 -name lat_mem_rd)"
+			echo "Running memory load latency..."
+			log_cmd ./${TEST_BIN_PATH} -P ${nr_parallelism} ${size} ${stride} 2>&1 > $TMP_RESULT_ROOT/lmbench3
 
-	LMBENCH_RESULT="$TMP_RESULT_ROOT/extract-lmbench3"
-	sed '1,2d' $TMP_RESULT_ROOT/lmbench3 > ${LMBENCH_RESULT}
+			LMBENCH_RESULT="$TMP_RESULT_ROOT/extract-lmbench3"
+			sed '1,2d' $TMP_RESULT_ROOT/lmbench3 > ${LMBENCH_RESULT}
 
-	plot ${testbox}
+			plot ${testbox}
 
-	rm ${LMBENCH_RESULT}
-	mv lmbench_result.png $TMP_RESULT_ROOT/lmbench_result.png
+			rm ${LMBENCH_RESULT}
+			mv lmbench_result.png $TMP_RESULT_ROOT/lmbench_result.png
+		;;
+		'bw_mem')
+			TEST_BIN_PATH="$(find bin/ -maxdepth 2 -name bw_mem)"
+			echo "Running memory bandwitch test..."
+			log_cmd ./${TEST_BIN_PATH} -P ${nr_parallelism} ${size} ${op} 2>&1 > $TMP_RESULT_ROOT/lmbench3
+		;;
+		*) echo "invalid test:$test in lmbench3" && exit 1
+	esac
 fi

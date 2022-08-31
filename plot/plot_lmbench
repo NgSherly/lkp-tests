@@ -1,10 +1,11 @@
 #! /bin/bash
 
-plot() {
-data1="$1"
-data2="$2"
-data1_hostname="$3"
-data2_hostname="$4"
+plot()
+{
+local data1="$1"
+local data2="$2"
+local data1_hostname="$3"
+local data2_hostname="$4"
 gnuplot <<EOF
 set terminal png medium size 1920,1080
 set output "lmbench_result_combined.png"
@@ -24,26 +25,29 @@ plot "${data1}" using 1:2 with linespoints ls 1 smooth unique title "${data1_hos
 EOF
 }
 
-if [ -n "$1" -a -n "$2" ]; then
+data_set1="$1"
+data_set2="$2"
 
-	DATA1_PATH="$( dirname "$(realpath $1)" )";
-	DATA2_PATH="$( dirname "$(realpath $2)" )";
-	if [ -f ${DATA1_PATH}/job.yaml ]; then
-		DATA1_HOSTNAME="$( grep -r 'tbox_group:' ${DATA1_PATH}/job.yaml | tail -n1 | awk '{ print $2 }' )";
+if [[ -n "$data_set1" && -n "$data_set2" ]]; then
+
+	data1_path="$( dirname "$(realpath $data_set1)" )";
+	data2_path="$( dirname "$(realpath $data_set2)" )";
+	if [ -f ${data1_path}/job.yaml ]; then
+		data1_hostname="$( grep -r 'tbox_group:' ${data1_path}/job.yaml | tail -n1 | awk '{ print $2 }' )";
 	else
-		DATA1_HOSTNAME="DATA 1"
+		data1_hostname="DATA 1"
 	fi
 	
-	if [ -f ${DATA2_PATH}/job.yaml ]; then
-		DATA2_HOSTNAME="$( grep -r 'tbox_group:' ${DATA2_PATH}/job.yaml | tail -n1 | awk '{ print $2 }' )";
+	if [ -f ${data2_path}/job.yaml ]; then
+		data2_hostname="$( grep -r 'tbox_group:' ${data2_path}/job.yaml | tail -n1 | awk '{ print $2 }' )";
 	else
-		DATA2_HOSTNAME="DATA 2"
+		data2_hostname="DATA 2"
 	fi
 	
 	sed '1,2d' $1 > ./extract_data1
 	sed '1,2d' $2 > ./extract_data2
 	
-	plot ./extract_data1 ./extract_data2 "$DATA1_HOSTNAME" "$DATA2_HOSTNAME"
+	plot ./extract_data1 ./extract_data2 "$data1_hostname" "$data2_hostname"
 	rm ./extract_data1 ./extract_data2
 
 else
